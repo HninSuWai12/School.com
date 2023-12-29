@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -61,7 +61,7 @@
         <div class="navbar-search-block">
           <form class="form-inline">
             <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+              <input class="form-control form-control-navbar" type="search" placeholder="Search djgfb" aria-label="Search">
               <div class="input-group-append">
                 <button class="btn btn-navbar" type="submit">
                   <i class="fas fa-search"></i>
@@ -85,7 +85,7 @@
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="{{ asset('admin/dist/img/user1-128x128.jpg')}}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+              {{--  <img src="{{ asset('admin/dist/img/user1-128x128.jpg')}}" alt="User Avatar" class="img-size-50 mr-3 img-circle">  --}}
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Brad Diesel
@@ -117,7 +117,7 @@
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="{{asset('admin/dist/img/user3-128x128.jpg')}}" alt="User Avatar" class="img-size-50 img-circle mr-3">
+              {{--  <img src="{{asset('admin/dist/img/user3-128x128.jpg')}}" alt="User Avatar" class="img-size-50 img-circle mr-3">  --}}
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Nora Silvester
@@ -199,17 +199,7 @@
         </div>
       </div>
 
-      <!-- SidebarSearch Form -->
-      <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
-        </div>
-      </div>
+
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -227,7 +217,7 @@
           </a>
         </li>
         <li class="nav-item menu-open">
-          <a href="#" class="nav-link active">
+          <a href="{{ url('admin/list') }}" class="nav-link active">
               <i class=" nav-icon fa-solid fa-user-tie"></i>
             <p>
               Admin
@@ -235,7 +225,7 @@
           </a>
         </li>
         <li class="nav-item menu-open">
-          <a href="#" class="nav-link active">
+          <a href="{{ route('logout') }}" class="nav-link active">
               <i class="nav-icon fa-solid fa-right-from-bracket"></i>
               <p>
               Logout

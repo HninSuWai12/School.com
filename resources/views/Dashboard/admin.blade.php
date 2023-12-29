@@ -1,4 +1,4 @@
-@extends('adminDashboard.master')
+@extends('Dashboard.master')
 @section('content')
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->

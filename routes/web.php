@@ -33,6 +33,9 @@ use Illuminate\Support\Facades\Route;
 //Admin
 Route::group(['prefix'=>'admin' , 'middleware'=> 'admin'] , function(){
     Route::get('dashboard' , [adminController::class , 'dashboard'])->name('dashboard');
+    Route::get('list',[adminController::class , 'adminList']);
+    Route::get('add',[adminController::class , 'adminAdd']);
+    Route::post('addPost',[adminController::class , 'adminAddPost']);
 
 });
 

@@ -17,7 +17,7 @@ class AuthController extends Controller
     public function dashboard(){
         if(!empty(Auth::check())){
             if(Auth::user()->user_type == 1){
-                return view('adminDashboard.admin');
+                return view('Dashboard.admin');
             }elseif (Auth::user()->user_type == 2) {
                 return view('parentDashboard.dashboard');
             }elseif (Auth::user()->user_type == 3) {
@@ -34,7 +34,7 @@ class AuthController extends Controller
 
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password] , $remember)){
             if(Auth::user()->user_type == 1){
-                return redirect()->route('dashboard');
+                return redirect(url('admin/dashboard'));
             }elseif (Auth::user()->user_type == 2) {
                 return redirect(url('parent/dashboard'));
             }elseif (Auth::user()->user_type == 3) {
