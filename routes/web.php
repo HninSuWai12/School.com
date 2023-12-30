@@ -36,6 +36,9 @@ Route::group(['prefix'=>'admin' , 'middleware'=> 'admin'] , function(){
     Route::get('list',[adminController::class , 'adminList']);
     Route::get('add',[adminController::class , 'adminAdd']);
     Route::post('addPost',[adminController::class , 'adminAddPost']);
+    Route::get('edit/{id}',[adminController::class , 'adminEdit'])->name('edit');
+    Route::post('postEdit/{id}',[adminController::class , 'adminEditPost']);
+    Route::get('delete/{id}' , [adminController::class, 'adminDelete']);
 
 });
 

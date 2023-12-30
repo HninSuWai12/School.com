@@ -1,6 +1,7 @@
 @extends('Dashboard.master')
 @section('content')
 <div class="content-wrapper">
+    @include('message')
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
@@ -31,22 +32,27 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
                     <th></th>
                     <th></th>
                   </tr>
                 </thead>
                 <tbody>
+                  @foreach ($data as $item)
                   <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td><i class="fa-regular btn btn-info fa-pen-to-square"></i></td>
-                    <td><i class="fa-solid btn btn-danger fa-trash-can"></i></td>
+                    <th scope="row">{{ $item->id }}</th>
+                    <td>{{ $item->name }}</td>
+                    <td>{{ $item->email }}</td>
+                @if (Auth::user()->id != $item->id)
+                <td><a href="{{ url('admin/edit/' . $item->id) }}"><i class="fa-regular btn btn-info fa-pen-to-square"></i></a></td>
+
+                    <td><a href="{{ url('admin/delete/'. $item->id) }}"><i class="fa-solid btn btn-danger fa-trash-can"></i></a></td>
+
+                @endif
                   </tr>
+
+                  @endforeach
 
                 </tbody>
               </table>
