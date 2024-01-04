@@ -4,50 +4,78 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class adminController extends Controller
 {
     //
-    public function dashboard(){
+    public function dashboard()
+    {
         return view('Dashboard.admin');
     }
     //AdminList
-    public function adminList(){
-        $data = User::get();
+    public function adminList()
+    {
+        $data = User::when(request('name'), function ($query) {
+            $query->where('name', 'like', '%' . request('name') . '%');
+        })->when(request('email') , function($query){
+            $query->where('email','like','%'.request('email').'%');
+        })->when(request('createdAt') , function($query){
+            $query->where('created_At','like','%'.request('createdAt').'%');
+        })
+        ->paginate(5);
+        $data->appends(request()->all());
         return view('adminDashboard.adminList', compact('data'));
     }
-    public function adminAdd(){
+
+
+    public function adminAdd()
+    {
         return view('adminDashboard.adminAdd');
     }
-    public function adminAddPost(Request $request){
-        $data=$this->requestData($request);
+    public function adminAddPost(Request $request)
+    {
+        $this->checkValidate($request);
+
+        $data = $this->requestData($request);
         User::create($data);
-        return redirect('admin/list')->with('success', "Admin Add Successfully.");
+        return redirect('admin/list')->with('success', 'Admin Add Successfully.');
     }
-    public function adminEdit($id){
-         $page = User::where('id',$id)->first();
+    public function adminEdit($id)
+    {
+        $page = User::where('id', $id)->first();
         return view('adminDashboard.adminEdit', compact('page'));
     }
-    public function adminEditPost(Request $request , $id){
-        $data=$this->requestData($request);
+    public function adminEditPost(Request $request, $id)
+    {
+        $data = $this->requestData($request);
 
-        User::where('id',$id)->update($data);
+        User::where('id', $id)->update($data);
 
-        return redirect('admin/list')->with('success', "Update Successfully.");
+        return redirect('admin/list')->with('success', 'Update Successfully.');
     }
-    public function adminDelete($id){
-        User::where('id',$id)->delete();
-        return redirect()->back()->with('success' , "Data deleted");
+    public function adminDelete($id)
+    {
+        User::where('id', $id)->delete();
+        return redirect()
+            ->back()
+            ->with('success', 'Data deleted');
     }
-    private function requestData($request){
-        return[
-
-                'name'=>$request->name,
-                'email'=>$request->email,
-                'password'=>Hash::make($request->password),
-
-
+    private function requestData($request)
+    {
+        return [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
         ];
+    }
+    private function checkValidate($request)
+    {
+        request()->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required',
+        ]);
     }
 }
