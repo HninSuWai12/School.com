@@ -10,9 +10,9 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              {{--  <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">jsGrid</li>  --}}
-              <div class="btn  btn-success">Edit Admin</div>
+
+              <a href="{{ url('admin/list') }}">
+                <div class="btn  btn-success">Back Member List</div></a>
             </ol>
           </div>
         </div>
@@ -37,6 +37,20 @@
                     <label for="exampleInputEmail1">Email</label>
                     <input type="email" name="email" value="{{ $page->email }}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your Email">
                   </div>
+                  <div class="form-group">
+                            <label for="exampleInputEmail1">Type</label>
+                            <select class="form-select" aria-label="Default select example" name="type">
+                                <option selected>{{ $page->user_type }}</option>
+                                @foreach($type as $typeName => $typeValue)
+                                    <option value="{{ $typeValue }}">{{ $typeName }}</option>
+                                @endforeach
+                              </select>
+                                @if ($errors->has('type'))
+                                <div class="text-red">
+                                    {{ $errors->first('type') }}
+                                </div>
+                            @endif
+                        </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Password</label>
                     <input type="password" name="password" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Password">

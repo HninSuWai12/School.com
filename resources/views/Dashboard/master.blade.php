@@ -214,7 +214,7 @@
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
             @if(Auth::check() && !empty(Auth::user()->name))
-            @if (Auth::user()->user_type == 1)
+            @if (Auth::user()->user_type == 'admin')
            <a href="#" class="nav-link active">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
@@ -230,6 +230,30 @@
             </p>
           </a>
         </li>
+        <li class="nav-item menu-open">
+            <a href="{{ url('admin/classList') }}" class="nav-link active">
+                <i class=" nav-icon fa-solid fa-user-tie"></i>
+              <p>
+                Class
+              </p>
+            </a>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="{{ url('admin/subjectList') }}" class="nav-link active">
+                <i class=" nav-icon fa-solid fa-user-tie"></i>
+              <p>
+                Subject
+              </p>
+            </a>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="{{ url('admin/classList') }}" class="nav-link active">
+                <i class=" nav-icon fa-solid fa-user-tie"></i>
+              <p>
+                Assign 
+              </p>
+            </a>
+          </li>
         <li class="nav-item menu-open">
           <a href="{{ route('logout') }}" class="nav-link active">
               <i class="nav-icon fa-solid fa-right-from-bracket"></i>

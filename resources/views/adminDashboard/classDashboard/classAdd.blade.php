@@ -6,13 +6,15 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Admin List</h1>
+                        <h1>Add Class</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             {{--  <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active">jsGrid</li>  --}}
-                            <div class="btn  btn-success">Add Admin</div>
+                            <a href="{{ url('admin/classList') }}">
+                                <div class="btn  btn-info">Back Class</div>
+                            </a>
                         </ol>
                     </div>
                 </div>
@@ -25,7 +27,7 @@
 
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <form action="{{ url('admin/addPost') }}" method="POST">
+                    <form action="{{ url('admin/classAddPost') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <label for="exampleInputEmail1">Name</label>
@@ -38,41 +40,35 @@
                             @endif
 
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Email</label>
-                            <input type="email" name="email" value="{{ old('email') }}" class="form-control"
-                                id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your Email">
-                                @if ($errors->has('email'))
-                                <div class="text-red">
-                                    {{ $errors->first('email') }}
-                                </div>
-                            @endif
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Type</label>
-                            <select class="form-select" aria-label="Default select example" name="type">
-                                <option selected disabled>Open the member type</option>
+                        {{--  <div class="form-group">
+                            <label for="exampleInputEmail1">Subject Type</label>
+                            <select class="form-select" aria-label="Default select example" name="subjectType">
+                                <option selected disabled>Select subject type</option>
                                 @foreach($type as $typeName => $typeValue)
                                     <option value="{{ $typeValue }}">{{ $typeName }}</option>
                                 @endforeach
                               </select>
-                                @if ($errors->has('type'))
+                                @if ($errors->has('subjectType'))
                                 <div class="text-red">
-                                    {{ $errors->first('type') }}
+                                    {{ $errors->first('subjectType') }}
+                                </div>
+                            @endif
+                        </div>  --}}
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Status</label>
+                            <select class="form-select" aria-label="Default select example" name="status">
+                                <option selected disabled>Open the status</option>
+                                @foreach($status as $statusName => $statusValue)
+                                    <option value="{{ $statusValue }}">{{ $statusName }}</option>
+                                @endforeach
+                              </select>
+                                @if ($errors->has('status'))
+                                <div class="text-red">
+                                    {{ $errors->first('status') }}
                                 </div>
                             @endif
                         </div>
 
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Password</label>
-                            <input type="password" name="password" value="{{ old('password') }}" class="form-control" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" placeholder="Enter Password">
-                                @if ($errors->has('password'))
-                                <div class="text-red">
-                                    {{ $errors->first('password') }}
-                                </div>
-                            @endif
-                        </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
 
                     </form>

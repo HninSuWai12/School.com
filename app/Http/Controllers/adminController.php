@@ -17,22 +17,26 @@ class adminController extends Controller
     //AdminList
     public function adminList()
     {
-        $data = User::when(request('name'), function ($query) {
-            $query->where('name', 'like', '%' . request('name') . '%');
-        })->when(request('email') , function($query){
-            $query->where('email','like','%'.request('email').'%');
-        })->when(request('createdAt') , function($query){
-            $query->where('created_At','like','%'.request('createdAt').'%');
-        })
-        ->paginate(5);
+        $data = User::paginate(5);
         $data->appends(request()->all());
+        return view('adminDashboard.adminList', compact('data'));
+    }
+    public function searchAdmin(Request $request){
+        $query = $request->input('searchKey');
+
+        $data = User::where('name', 'like', '%' . $query . '%')
+                            ->orWhere('email', 'like', '%' . $query . '%')
+                            ->orWhere('created_at', 'like', '%' . $query . '%')
+                            ->paginate(5);
+         $data->appends($request->all());
         return view('adminDashboard.adminList', compact('data'));
     }
 
 
     public function adminAdd()
     {
-        return view('adminDashboard.adminAdd');
+        $type = User::getType();
+        return view('adminDashboard.adminAdd' , compact('type'));
     }
     public function adminAddPost(Request $request)
     {
@@ -45,7 +49,8 @@ class adminController extends Controller
     public function adminEdit($id)
     {
         $page = User::where('id', $id)->first();
-        return view('adminDashboard.adminEdit', compact('page'));
+        $type = User::getType();
+        return view('adminDashboard.adminEdit', compact('page', 'type'));
     }
     public function adminEditPost(Request $request, $id)
     {
@@ -67,6 +72,7 @@ class adminController extends Controller
         return [
             'name' => $request->name,
             'email' => $request->email,
+            'user_type'=> $request->type,
             'password' => Hash::make($request->password),
         ];
     }
@@ -75,6 +81,7 @@ class adminController extends Controller
         request()->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
+            'type'=>'required',
             'password' => 'required',
         ]);
     }

@@ -16,13 +16,13 @@ class AuthController extends Controller
     //
     public function dashboard(){
         if(!empty(Auth::check())){
-            if(Auth::user()->user_type == 1){
+            if(Auth::user()->user_type == 'admin'){
                 return view('Dashboard.admin');
-            }elseif (Auth::user()->user_type == 2) {
+            }elseif (Auth::user()->user_type == 'parent') {
                 return view('parentDashboard.dashboard');
-            }elseif (Auth::user()->user_type == 3) {
+            }elseif (Auth::user()->user_type == 'student') {
                 return view('studentDashboard.dashboard');
-            }elseif (Auth::user()->user_type == 4) {
+            }elseif (Auth::user()->user_type == 'school') {
                 return view('schoolDashboard.dashboard');
             }
         }
@@ -33,13 +33,13 @@ class AuthController extends Controller
         $remember = !empty($request->remember) ? true : false;
 
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password] , $remember)){
-            if(Auth::user()->user_type == 1){
+            if(Auth::user()->user_type == 'admin'){
                 return redirect(url('admin/dashboard'));
-            }elseif (Auth::user()->user_type == 2) {
+            }elseif (Auth::user()->user_type == 'parent') {
                 return redirect(url('parent/dashboard'));
-            }elseif (Auth::user()->user_type == 3) {
+            }elseif (Auth::user()->user_type == 'student') {
                 return redirect(url('student/dashboard'));
-            }elseif (Auth::user()->user_type == 4) {
+            }elseif (Auth::user()->user_type == 'school') {
                 return redirect(url('school/dashboard'));
             }
         }else{

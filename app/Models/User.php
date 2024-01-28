@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'user_type',
         'password',
     ];
 
@@ -49,4 +50,27 @@ class User extends Authenticatable
     static public function getTokenSingle($remember_token){
         return User::where('remember_token' , '=' , $remember_token)->first();
     }
+
+    public static function getType(){
+        return[
+            'admin'=> 'admin',
+            'parent'=> 'parent',
+            'student'=> 'student',
+            'school' => 'school',
+        ];
+    }
+
+    public static function getStatus(){
+        return[
+            'active'=> 'Active',
+            'inactive'=>'Inactive',
+        ];
+    }
+    public static function getSubjectType(){
+        return[
+            'theory'=> 'Theory',
+            'pratical'=>'Pratical',
+        ];
+    }
+
 }

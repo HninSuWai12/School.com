@@ -17,7 +17,7 @@ class parentMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if(!empty(Auth::check())){
-            if(Auth::user()->user_type == 2){
+            if(Auth::user()->user_type == 'parent'){
                 return $next($request);
             }else{
                 Auth::logout();

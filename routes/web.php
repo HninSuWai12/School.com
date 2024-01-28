@@ -2,10 +2,14 @@
 
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClassModelController;
 use App\Http\Controllers\parentController;
 use App\Http\Controllers\schoolController;
 use App\Http\Controllers\studentController;
+use App\Http\Controllers\SubjectController;
+use App\Models\classModel;
 use Illuminate\Support\Facades\Route;
+use PHPUnit\Event\Code\ClassMethod;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +43,24 @@ Route::group(['prefix'=>'admin' , 'middleware'=> 'admin'] , function(){
     Route::get('edit/{id}',[adminController::class , 'adminEdit'])->name('edit');
     Route::post('postEdit/{id}',[adminController::class , 'adminEditPost']);
     Route::get('delete/{id}' , [adminController::class, 'adminDelete']);
+    Route::get('searchAdmin',[adminController::class, 'searchAdmin'])->name('adminSearch');
+    //Class
+    Route::get('classList',[ClassModelController::class,'classList']);
+    Route::get('classAdd',[ClassModelController::class,'classAdd']);
+    Route::post('classAddPost',[ClassModelController::class,'classAddPost']);
+    Route::get('classEdit/{id}',[ClassModelController::class , 'classEdit']);
+    Route::post('classEditPost/{id}',[ClassModelController::class , 'classEditPost']);
+    Route::get('classDelete/{id}' , [ClassModelController::class, 'classDelete']);
+    Route::get('search',[ClassModelController::class, 'searchData'])->name('classSearch');
+    //Subject
+    Route::get('subjectList',[SubjectController::class,'subjectList']);
+    Route::get('subjectAdd',[SubjectController::class,'subjectAdd']);
+    Route::post('subjectAddPost',[SubjectController::class,'subjectAddPost']);
+    Route::get('subjectEdit/{id}',[SubjectController::class , 'subjectEdit']);
+    Route::post('subjectEditPost/{id}',[SubjectController::class , 'subjectEditPost']);
+    Route::get('subjectDelete/{id}' , [SubjectController::class, 'subjectDelete']);
+    Route::get('subjectSearch',[SubjectController::class, 'searchData'])->name('subjectSearch');
+
 
 });
 
